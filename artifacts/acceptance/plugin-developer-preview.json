@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-08-25T02:14:16Z",
+  "plugin": {
+    "name": "personal-software-factory",
+    "sourceVersion": "0.1.0",
+    "installedVersion": "0.1.0+codex.20260825021343",
+    "marketplace": "personal",
+    "installedAndEnabled": true
+  },
+  "automatedEvidence": {
+    "pythonTests": 209,
+    "pythonExitCode": 0,
+    "nodeTests": 9,
+    "nodeExitCode": 0,
+    "pluginValidatorExitCode": 0,
+    "privacyScanExitCode": 0
+  },
+  "liveEvidence": {
+    "mcpProcessExitCode": 0,
+    "toolCount": 5,
+    "projectId": "software-factory",
+    "intentStatus": "active",
+    "actionStatus": "ready",
+    "evidenceSources": ["Observer", "Git", "Verifier"],
+    "consoleHealthy": true,
+    "pluginRemoveReinstallPreservedLedger": true,
+    "externalHookEventCount": 1,
+    "skillEvalCases": 16
+  },
+  "verifiedBoundary": [
+    "The installed plugin starts a real stdio MCP server.",
+    "All five read-only tools returned bounded live-service projections.",
+    "Removing and reinstalling the plugin did not change the existing ledger.",
+    "An installed Hook wrote one event to an isolated external state root.",
+    "The versioned Skill corpus covers 5 positive, 5 negative, 3 failure, and 3 overreach cases."
+  ],
+  "unverifiedBoundary": [
+    "GitHub Actions has not run on the pull request yet.",
+    "The plugin has not been accepted by external users.",
+    "Autonomous repair and pull-request delivery are outside version 0.1.0."
+  ]
+}

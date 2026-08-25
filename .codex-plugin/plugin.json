@@ -1,0 +1,23 @@
+{
+  "name": "personal-software-factory",
+  "version": "0.1.0",
+  "description": "A local, evidence-bounded project control surface for Codex.",
+  "author": {
+    "name": "BUPTtt2",
+    "url": "https://github.com/BUPTtt2"
+  },
+  "repository": "https://github.com/BUPTtt2/personal-software-factory",
+  "license": "Apache-2.0",
+  "keywords": ["codex", "agent", "project-observer", "mcp"],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "个人软件工厂",
+    "shortDescription": "在 Codex 中查看项目目标、行动与证据。",
+    "longDescription": "连接本地 Observer，以只读方式识别当前项目，展示唯一当前行动和有界验证证据。",
+    "developerName": "BUPTtt2",
+    "category": "Productivity",
+    "capabilities": ["Read-only project status", "Local evidence summary"],
+    "defaultPrompt": "查看当前项目做到哪了、下一步是什么，并说明证据边界。"
+  }
+}

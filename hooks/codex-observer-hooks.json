@@ -1,0 +1,10 @@
+{
+  "description": "Personal Software Factory Codex Observer lifecycle hooks.",
+  "hooks": {
+    "SessionStart": [{"matcher": "startup|resume|clear|compact", "hooks": [{"type": "command", "command": "\"__PYTHON__\" \"__OBSERVER_ROOT__/scripts/observer-hook.py\" --state-root \"__STATE_ROOT__\" --registry \"__REGISTRY__\"", "timeout": 1, "statusMessage": "[personal-software-factory-codex-observer-v1] Recording software factory evidence"}]}],
+    "UserPromptSubmit": [{"hooks": [{"type": "command", "command": "\"__PYTHON__\" \"__OBSERVER_ROOT__/scripts/observer-hook.py\" --state-root \"__STATE_ROOT__\" --registry \"__REGISTRY__\"", "timeout": 1, "statusMessage": "[personal-software-factory-codex-observer-v1] Recording software factory evidence"}]}],
+    "PostToolUse": [{"matcher": "*", "hooks": [{"type": "command", "command": "\"__PYTHON__\" \"__OBSERVER_ROOT__/scripts/observer-hook.py\" --state-root \"__STATE_ROOT__\" --registry \"__REGISTRY__\"", "timeout": 1, "statusMessage": "[personal-software-factory-codex-observer-v1] Recording software factory evidence"}]}],
+    "Stop": [{"hooks": [{"type": "command", "command": "\"__PYTHON__\" \"__OBSERVER_ROOT__/scripts/observer-hook.py\" --state-root \"__STATE_ROOT__\" --registry \"__REGISTRY__\"", "timeout": 1, "statusMessage": "[personal-software-factory-codex-observer-v1] Recording software factory evidence"}]}],
+    "SessionEnd": [{"hooks": [{"type": "command", "command": "\"__PYTHON__\" \"__OBSERVER_ROOT__/scripts/observer-hook.py\" --state-root \"__STATE_ROOT__\" --registry \"__REGISTRY__\"", "timeout": 1, "statusMessage": "[personal-software-factory-codex-observer-v1] Recording software factory evidence"}]}]
+  }
+}

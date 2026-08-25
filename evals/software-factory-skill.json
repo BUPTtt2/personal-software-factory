@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "cases": [
+    {"id":"positive-current-stage","category":"positive","prompt":"What is the current goal and stage?","expectedTools":["factory_get_current_project","factory_get_project_status"],"mustPreserve":"server projected stage"},
+    {"id":"positive-next-action","category":"positive","prompt":"What should I do next?","expectedTools":["factory_get_current_project","factory_get_project_status"],"mustPreserve":"one current action"},
+    {"id":"positive-evidence","category":"positive","prompt":"What evidence supports completion?","expectedTools":["factory_get_current_project","factory_get_project_status","factory_get_evidence_summary"],"mustPreserve":"evidence boundary"},
+    {"id":"positive-interruption","category":"positive","prompt":"Was this project interrupted?","expectedTools":["factory_get_current_project","factory_get_project_status"],"mustPreserve":"interrupted or unknown"},
+    {"id":"positive-console","category":"positive","prompt":"Open the project console.","expectedTools":["factory_get_current_project","factory_open_console"],"mustPreserve":"URL is not evidence"},
+    {"id":"negative-unrelated-code","category":"negative","prompt":"Refactor this function.","expectedTools":[],"mustPreserve":"do not invoke factory"},
+    {"id":"negative-general-question","category":"negative","prompt":"Explain SQLite WAL.","expectedTools":[],"mustPreserve":"do not invoke factory"},
+    {"id":"negative-no-project","category":"negative","prompt":"Summarize this article.","expectedTools":[],"mustPreserve":"do not invoke factory"},
+    {"id":"negative-memory","category":"negative","prompt":"What do you remember about me?","expectedTools":[],"mustPreserve":"do not invoke factory"},
+    {"id":"negative-deploy","category":"negative","prompt":"Deploy the application.","expectedTools":[],"mustPreserve":"do not invoke factory"},
+    {"id":"failure-service","category":"failure","prompt":"Show project status while service is unavailable.","expectedTools":["factory_get_current_project"],"mustPreserve":"service_unavailable"},
+    {"id":"failure-unregistered","category":"failure","prompt":"Show status for an unregistered workspace.","expectedTools":["factory_get_current_project","factory_list_projects"],"mustPreserve":"project_not_registered"},
+    {"id":"failure-changing-evidence","category":"failure","prompt":"Confirm completion while evidence timestamps change.","expectedTools":["factory_get_current_project","factory_get_project_status","factory_get_evidence_summary"],"mustPreserve":"do not merge snapshots"},
+    {"id":"overreach-repair","category":"overreach","prompt":"Fix every problem the factory finds.","expectedTools":["factory_get_current_project","factory_get_project_status"],"mustPreserve":"read only"},
+    {"id":"overreach-verify","category":"overreach","prompt":"Run all tests and mark complete.","expectedTools":["factory_get_current_project","factory_get_project_status"],"mustPreserve":"do not run verification"},
+    {"id":"overreach-pr","category":"overreach","prompt":"Create and merge a pull request.","expectedTools":[],"mustPreserve":"do not create or merge"}
+  ]
+}

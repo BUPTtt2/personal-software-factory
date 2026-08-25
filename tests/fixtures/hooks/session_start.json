@@ -1,0 +1,9 @@
+{
+  "session_id": "thread-test-1",
+  "transcript_path": "/tmp/test-rollout.jsonl",
+  "cwd": "__REGISTERED_CWD__",
+  "hook_event_name": "SessionStart",
+  "model": "test-model",
+  "permission_mode": "default",
+  "source": "startup"
+}

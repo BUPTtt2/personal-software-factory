@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>个人软件工厂</title>
+  <link rel="stylesheet" href="./app.css">
+</head>
+<body>
+  <main class="factory-shell" data-state="loading">
+    <header class="topbar">
+      <a class="brand" href="./" aria-label="个人软件工厂首页">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="brand-copy"><strong>个人软件工厂</strong><small>LOCAL CONTROL DESK</small></span>
+      </a>
+      <nav class="project-nav" id="project-nav" aria-label="项目"></nav>
+      <p class="connection-state" id="connection-state"><span aria-hidden="true"></span>正在连接本地服务</p>
+    </header>
+
+    <div class="workspace-grid" aria-busy="true">
+      <article class="judgement">
+        <div class="judgement-copy">
+          <p class="project-context" id="project-context">正在确认最近活动</p>
+          <p class="source" id="judgement-source"><span id="goal-status">正在读取项目目标</span></p>
+          <section class="goal-brief" aria-label="项目目标与当前任务">
+            <div class="goal-statement">
+              <span>项目目标</span>
+              <strong id="goal-outcome">正在读取已确认的结果</strong>
+            </div>
+            <div class="gap-statement">
+              <span>当前缺口</span>
+              <strong id="gap-title">正在核对事实</strong>
+            </div>
+            <dl class="action-metadata">
+              <div><dt>执行者</dt><dd id="action-actor">待确认</dd></div>
+              <div><dt>完成证据</dt><dd id="completion-evidence">待确认</dd></div>
+              <div><dt>开始时间</dt><dd id="action-started">待确认</dd></div>
+            </dl>
+          </section>
+          <h1 id="judgement-title" aria-live="polite" aria-atomic="true">正在读取项目事实</h1>
+          <section class="acceptance-review" id="acceptance-review" hidden aria-labelledby="acceptance-review-title" tabindex="-1">
+            <p id="acceptance-review-title">请逐项核对验收标准</p>
+            <ul id="acceptance-criteria"></ul>
+          </section>
+          <form class="intent-editor" id="intent-editor" hidden novalidate>
+            <header>
+              <h2>登记项目目标</h2>
+              <p>保存后，当前任务将按这个结果和验收标准重新评估。</p>
+            </header>
+            <label for="intent-outcome">项目目标</label>
+            <textarea id="intent-outcome" maxlength="240" rows="2" required aria-describedby="outcome-help"></textarea>
+            <small id="outcome-help">最多 240 字，只写要看到的结果。</small>
+            <label for="intent-criteria">验收标准</label>
+            <textarea id="intent-criteria" maxlength="1686" rows="3" required aria-describedby="criteria-help"></textarea>
+            <small id="criteria-help">每行一条，1 至 7 条，每条最多 240 字。</small>
+            <label for="intent-constraints">约束</label>
+            <textarea id="intent-constraints" maxlength="1686" rows="2" aria-describedby="constraints-help"></textarea>
+            <small id="constraints-help">可选，每行一条，最多 7 条。</small>
+            <div class="editor-actions">
+              <button class="editor-action" id="save-intent" type="submit">保存目标</button>
+              <button class="editor-cancel" id="reload-latest-intent" type="button" hidden>载入最新目标</button>
+              <button class="editor-cancel" id="cancel-intent" type="button">取消</button>
+            </div>
+            <p class="intent-feedback" id="intent-feedback" role="status" aria-live="polite"></p>
+          </form>
+          <section class="decision-request" id="decision-request" hidden aria-labelledby="decision-question">
+            <p>需要你决定</p>
+            <h2 id="decision-question"></h2>
+            <p id="decision-reason"></p>
+            <ul id="decision-options"></ul>
+            <p id="decision-scope"></p>
+          </section>
+          <div class="status-deck" aria-label="项目工作摘要">
+            <p><span>STATUS</span><strong id="stage-label">正在确认</strong></p>
+            <p><span>GIT</span><strong id="git-brief">等待 Git 元数据</strong></p>
+            <p><span>VERIFIER</span><strong id="verification-brief">等待验证回执</strong></p>
+          </div>
+          <details class="explanation">
+            <summary>完整说明与依据</summary>
+            <ul class="fact-list" id="fact-list" aria-label="关键事实"></ul>
+            <p id="full-explanation">正在核对 Observer 与最近验证证据。</p>
+          </details>
+          <p class="next-action" id="next-action"></p>
+        </div>
+        <div class="action-zone">
+          <div class="actions">
+            <button class="primary-action" id="agent-action" type="button" disabled>让 Agent 判断</button>
+            <button class="goal-action" id="open-intent-editor" type="button" hidden>登记项目目标</button>
+            <button class="goal-action" id="confirm-achievement" type="button" hidden>确认目标达成</button>
+            <button class="edit-intent-action" id="edit-intent" type="button" hidden>修改目标</button>
+            <button class="evidence-action" id="evidence-toggle" type="button" aria-expanded="false" aria-controls="evidence">查看依据</button>
+          </div>
+          <p class="safe-error" id="safe-error" role="status"></p>
+        </div>
+      </article>
+
+      <aside class="evidence-panel" aria-label="项目依据与执行链">
+        <header class="panel-heading">
+          <p>PROJECT EVIDENCE</p>
+          <span>证据比完成声明更重要</span>
+        </header>
+        <section class="agent-record" id="agent-record" aria-label="主管 Agent 记录">
+          <p class="agent-record-label">SUPERVISOR RECORD</p>
+          <strong id="agent-status">主管 Agent 尚未运行</strong>
+          <time id="agent-timestamp">没有运行时间</time>
+          <p id="agent-scope">只在你点击后，只读查看 Observer、Git 与验证回执</p>
+        </section>
+        <div class="evidence" id="evidence" hidden></div>
+        <ol class="system-spine" id="system-spine" aria-label="Agent 系统工作链">
+          <li class="spine-step is-current" data-role="Observer" aria-current="step">
+            <strong>Observer</strong><span>看见发生了什么</span>
+          </li>
+          <li class="spine-step" data-role="Agent">
+            <strong>Agent</strong><span>判断现在该做什么</span>
+          </li>
+          <li class="spine-step" data-role="Codex">
+            <strong>Codex</strong><span>执行具体任务</span>
+          </li>
+          <li class="spine-step" data-role="Verifier">
+            <strong>Verifier</strong><span>证明结果是否成立</span>
+          </li>
+        </ol>
+      </aside>
+    </div>
+
+    <section class="file-launch" id="file-launch" hidden>
+      <p class="source">当前打开的是应用文件</p>
+      <h2>启动本地服务后查看真实项目</h2>
+      <p>这个页面不会伪造项目状态。在终端运行下方命令，然后打开本地控制台。</p>
+      <code>personal-software-factory serve --host 127.0.0.1 --port 8765 --open</code>
+      <a href="http://127.0.0.1:8765/">打开本地控制台</a>
+    </section>
+
+    <footer class="safety-note">
+      <span>只读判断</span><span>本地运行</span><span>不自动修改项目</span>
+    </footer>
+  </main>
+  <script src="./state.js" defer></script>
+  <script src="./app.js" defer></script>
+</body>
+</html>

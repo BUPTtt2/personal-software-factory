@@ -1,0 +1,12 @@
+{
+  "session_id": "thread-test-1",
+  "cwd": "__REGISTERED_CWD__",
+  "hook_event_name": "PostToolUse",
+  "model": "test-model",
+  "permission_mode": "default",
+  "turn_id": "turn-test-1",
+  "tool_name": "Bash",
+  "tool_use_id": "tool-test-1",
+  "tool_input": {"command": "python3 -m unittest tests.test_redact -v"},
+  "tool_response": {"exit_code": 0, "output": "fixture-secret"}
+}

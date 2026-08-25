@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Personal Software Factory</title>
+  <rect width="64" height="64" rx="14" fill="#11120f"/>
+  <path d="M15 43V29h8v14zm13 0V20h8v23zm13 0V13h8v30z" fill="#f4f1e8"/>
+  <path d="M13 49h38" stroke="#4f6cff" stroke-width="4"/>
+</svg>

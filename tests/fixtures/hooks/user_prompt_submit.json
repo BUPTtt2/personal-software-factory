@@ -1,0 +1,10 @@
+{
+  "session_id": "thread-test-1",
+  "transcript_path": "/tmp/test-rollout.jsonl",
+  "cwd": "__REGISTERED_CWD__",
+  "hook_event_name": "UserPromptSubmit",
+  "model": "test-model",
+  "permission_mode": "default",
+  "turn_id": "turn-test-1",
+  "prompt": "修复测试页面；token=fixture-secret"
+}

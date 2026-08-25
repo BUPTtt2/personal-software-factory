@@ -1,0 +1,13 @@
+#!/bin/sh
+set -eu
+
+plugin_root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd -P)
+export PYTHONPATH="$plugin_root"
+cd "$plugin_root"
+for candidate in "${SOFTWARE_FACTORY_PYTHON:-}" "$plugin_root/.venv/bin/python3" "$(command -v python3 || true)" /opt/homebrew/bin/python3 /usr/local/bin/python3 "$HOME/miniconda3/bin/python3" "$HOME/.local/bin/python3"; do
+  if [ -n "$candidate" ] && [ -x "$candidate" ] && "$candidate" -c 'import sys; raise SystemExit(0 if sys.version_info >= (3, 11) else 1)' >/dev/null 2>&1; then
+    exec "$candidate" -m observer.mcp_server
+  fi
+done
+echo "No usable Python 3.11+ runtime found." >&2
+exit 1

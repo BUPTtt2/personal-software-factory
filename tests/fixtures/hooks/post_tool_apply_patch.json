@@ -1,0 +1,13 @@
+{
+  "session_id": "thread-test-1",
+  "transcript_path": "/tmp/test-rollout.jsonl",
+  "cwd": "__REGISTERED_CWD__",
+  "hook_event_name": "PostToolUse",
+  "model": "test-model",
+  "permission_mode": "default",
+  "turn_id": "turn-test-1",
+  "tool_name": "apply_patch",
+  "tool_use_id": "tool-patch-1",
+  "tool_input": {"command": "PATCH fixture-secret source-content"},
+  "tool_response": {"output": "fixture-secret source-content"}
+}

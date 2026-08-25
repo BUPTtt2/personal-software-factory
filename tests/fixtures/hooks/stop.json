@@ -1,0 +1,10 @@
+{
+  "session_id": "thread-test-1",
+  "cwd": "__REGISTERED_CWD__",
+  "hook_event_name": "Stop",
+  "model": "test-model",
+  "permission_mode": "default",
+  "turn_id": "turn-test-1",
+  "stop_hook_active": false,
+  "last_assistant_message": "全部完成 token=fixture-secret"
+}

@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "personal-software-factory"
+version = "0.1.0"
+description = "Local, evidence-bounded project control for Codex"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+authors = [{name = "BUPTtt2"}]
+keywords = ["codex", "mcp", "agent", "developer-tools"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+]
+
+[project.urls]
+Repository = "https://github.com/BUPTtt2/personal-software-factory"
+Issues = "https://github.com/BUPTtt2/personal-software-factory/issues"
+
+[project.scripts]
+personal-software-factory = "observer.cli:main"
+
+[tool.setuptools]
+packages = ["observer", "console"]
+
+[tool.setuptools.package-data]
+console = ["*.html", "*.css", "*.js"]

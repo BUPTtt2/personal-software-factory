@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "software-factory": {
+      "command": "./bin/software-factory-mcp",
+      "cwd": "."
+    }
+  }
+}

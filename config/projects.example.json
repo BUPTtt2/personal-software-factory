@@ -1,0 +1,11 @@
+{
+  "projects": [
+    {
+      "id": "example-project",
+      "displayName": "Example Project",
+      "roots": ["/absolute/path/to/example-project"],
+      "gitRemotes": ["https://github.com/example/example-project.git"],
+      "enabled": true
+    }
+  ]
+}

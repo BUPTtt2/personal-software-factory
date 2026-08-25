@@ -25,7 +25,9 @@ class PluginDistributionTests(unittest.TestCase):
         manifest_path = ROOT / ".codex-plugin/plugin.json"
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         self.assertEqual(manifest["name"], "personal-software-factory")
-        self.assertEqual(manifest["version"], "0.1.0")
+        self.assertRegex(
+            manifest["version"], r"^0\.1\.0(?:\+codex\.[0-9A-Za-z.-]+)?$",
+        )
         self.assertEqual(manifest["skills"], "./skills/")
         self.assertEqual(manifest["mcpServers"], "./.mcp.json")
         self.assertNotIn("hooks", manifest)

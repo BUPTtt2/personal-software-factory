@@ -19,11 +19,14 @@ class MaintenanceLoopTests(unittest.TestCase):
 
     def test_runs_immediately_then_periodically_and_stops_cleanly(self):
         called = threading.Event()
+        called_twice = threading.Event()
         calls = []
 
         def reconcile(store, command, now, stale_after):
             calls.append((store, command, stale_after))
             called.set()
+            if len(calls) >= 2:
+                called_twice.set()
             return ReconcileReport(examined=2, interrupted=1)
 
         loop = MaintenanceLoop(
@@ -35,7 +38,7 @@ class MaintenanceLoopTests(unittest.TestCase):
         )
         loop.start()
         self.assertTrue(called.wait(0.5))
-        time.sleep(0.04)
+        self.assertTrue(called_twice.wait(1.0))
         loop.stop()
         count_after_stop = len(calls)
         time.sleep(0.04)

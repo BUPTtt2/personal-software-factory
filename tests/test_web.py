@@ -15,6 +15,7 @@ from observer.console_model import current_evidence_cursor
 from observer.event_store import EventRecord, EventStore
 from observer.git_snapshot import GitSnapshot
 from observer.project_work import ProjectWorkStore
+from observer.project_work import ProjectWorkEvaluator
 from observer.verification_runner import VerificationRunner
 from observer.web import create_server
 
@@ -99,6 +100,30 @@ class WebTests(unittest.TestCase):
         rendered = payload.decode("utf-8")
         self.assertNotIn("PRIVATE_PROMPT", rendered)
         self.assertNotIn("PRIVATE_CLAIM", rendered)
+
+    def test_project_work_refresh_callbacks_are_serialized(self):
+        self.server.maintenance.stop()
+        active = 0
+        maximum = 0
+        guard = threading.Lock()
+
+        def probe(*args, **kwargs):
+            nonlocal active, maximum
+            with guard:
+                active += 1
+                maximum = max(maximum, active)
+            threading.Event().wait(0.05)
+            with guard:
+                active -= 1
+
+        callback = self.server.maintenance.refresh_project_work
+        with patch.object(ProjectWorkEvaluator, "refresh", side_effect=probe):
+            workers = [threading.Thread(target=callback, args=(datetime.now(timezone.utc),)) for _ in range(2)]
+            for worker in workers:
+                worker.start()
+            for worker in workers:
+                worker.join(timeout=1)
+        self.assertEqual(maximum, 1)
 
     def test_state_script_is_served_without_cache_and_cannot_escape_assets(self):
         status, headers, payload = self.request("GET", "/state.js")

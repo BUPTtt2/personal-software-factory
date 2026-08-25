@@ -68,15 +68,18 @@ def create_server(
     event_store = EventStore(db_path, buffer_dir)
     event_store.initialize()
     work_store = ProjectWorkStore(db_path)
-    work_evaluator = ProjectWorkEvaluator(work_store)
+    refresh_lock = threading.Lock()
+
+    def overview(at: datetime | None = None) -> tuple[ProjectSnapshot, ...]:
+        return build_overview(state, at, registry_path=registry, db_path=db_path)
 
     def refresh_project_work(now: datetime) -> None:
-        for snapshot in build_overview(
-            state, now, registry_path=registry, db_path=db_path,
-        ):
-            work_evaluator.refresh(snapshot.project_id, snapshot, now)
+        with refresh_lock:
+            _refresh_project_work(db_path, overview, now)
 
-    handler = _handler_factory(code_root, state, registry, codex_executable)
+    handler = _handler_factory(
+        code_root, state, registry, codex_executable, refresh_project_work,
+    )
     server = ConsoleServer((host, port), handler)
     AgentRunStore(db_path).recover_abandoned(datetime.now(timezone.utc))
     server.maintenance = MaintenanceLoop(
@@ -123,6 +126,7 @@ def _handler_factory(
     state_root: Path,
     registry_path: Path,
     codex_executable: str,
+    refresh_project_work: Callable[[datetime], None],
 ):
     db_path = state_root / "data/factory.sqlite"
     buffer_dir = state_root / "buffer"
@@ -321,7 +325,7 @@ def _handler_factory(
 
         def _refresh_project_work_after_write(self, now: datetime) -> None:
             try:
-                _refresh_project_work(db_path, overview, now)
+                refresh_project_work(now)
             except Exception as exc:
                 maintenance = getattr(self.server, "maintenance", None)
                 if maintenance:
